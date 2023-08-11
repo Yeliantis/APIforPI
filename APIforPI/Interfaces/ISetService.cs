@@ -1,15 +1,15 @@
-﻿using APIforPI.Models;
+﻿using APIforPI.Infrastracture.Dto;
+using APIforPI.Models;
 
 namespace APIforPI.Interfaces
 {
     public interface ISetService
     {
-        Sets GetSetInformation(string name);
-       
-
-        void CreateNewSet(string name, int price, int totalAmount, IEnumerable<int> sushis);
-        ICollection<Sets> GetAllSets();
-        void ChangeSet(string name, int price, int totalAmount, IEnumerable<int> sushis);
-        void DeleteSet(string name);
+        Task<IEnumerable<SetsDto>> GetAllSetsAsync();
+        Task<SetsDto> GetSetInformationAsync(string name);
+        Task CreateNewSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis);
+        
+        Task ChangeSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis);
+        Task DeleteSetAsync(string name);
     }
 }

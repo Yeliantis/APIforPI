@@ -14,7 +14,7 @@ namespace APIforPI.Models
         public int Weight { get; set; }
         public int Price { get; set; }
         [JsonIgnore]
-        public ICollection<Sets> Sets { get; set; }
+        public List<Sets> Sets { get; set; }
         //public List<Sets> setsItBelongs {get;set;}
         //public int PercentOfProfit { get; set; }
     }

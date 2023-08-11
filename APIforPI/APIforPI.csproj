@@ -23,8 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\APIforPiInfrastracture\APIforPiInfrastracture.csproj" />
-    <ProjectReference Include="..\ApiforPiModeling\ApiforPiModeling.csproj" />
+    <ProjectReference Include="..\APIforPiInfrastracture\APIforPI.Infrastracture.csproj" />
   </ItemGroup>
 
 </Project>

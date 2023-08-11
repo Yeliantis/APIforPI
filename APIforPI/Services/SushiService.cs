@@ -1,43 +1,50 @@
-﻿using APIforPI.Dto;
+﻿
 using APIforPI.Interfaces;
 using APIforPI.Models;
-using APIforPiInfrastracture.Interfaces;
+using APIforPI.Infrastracture.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
+using APIforPI.Infrastracture.Dto;
 
 namespace APIforPI.Services
 {
     public class SushiService : ISushiService
     {
 
-        private readonly IDatabaseService _databaseService;
-        private readonly IMapper _mapper;
-        public SushiService(IDatabaseService databaseService, IMapper mapper)
+        private readonly IDbSushiService _databaseService;
+        
+        public SushiService(IDbSushiService databaseService, IMapper mapper)
         {
-            _databaseService= databaseService;
-            _mapper= mapper;
+            _databaseService = databaseService;
+           
         }
-        public IEnumerable<SushiDto> GetSushis()
+        public async Task<IEnumerable<SushiDto>> GetSushisAsync()
         {
-            var sushi = _mapper.Map<List<SushiDto>>(_databaseService.GetAllSushis());
-            return sushi;
-        }
-
-        public SushiDto GetSushiByName(string name)
-        {
-            var sushi = _mapper.Map<SushiDto>(_databaseService.GetSushi(name));
-            return sushi;
+            var list = await _databaseService.GetAllSushisAsync();
+            var configuration = new MapperConfiguration(cfg => cfg.CreateMap<Sushi, SushiDto>());
+            return new Mapper(configuration).Map<IEnumerable<SushiDto>>(list);
         }
 
-        public SushiDto GetSushi(int id) => _mapper.Map<SushiDto>(_databaseService.GetSushiWithId(id));
-
-        public void CreateSushi(string name, int price, int weight, int quantity)
+        public async Task<SushiDto> GetSushiByNameAsync(string name)
         {
-            _databaseService.CreateSushi(name,price,weight,quantity);
-            //var sushi = new Sushi { Name = name, Quantity = quantity, Weight = weight, Price =price };
-           /* if (_databaseService.GetSushi(sushi.Name) != null)/* return null;*/
-            //_databaseService.
-            //return sushi;
+            var result = await _databaseService.GetSushiAsync(name);
+            var configuration = new MapperConfiguration(cfg => cfg.CreateMap<Sushi, SushiDto>());
+            return new Mapper(configuration).Map<SushiDto>(result);
+        }
+
+        public async Task<SushiDto> GetSushiByIdAsync(int id)
+        {
+            var result = await _databaseService.GetSushiWithIdAsync(id);
+            var configuration = new MapperConfiguration(cfg => cfg.CreateMap<Sushi, SushiDto>());
+            return new Mapper(configuration).Map<SushiDto>(result);
+
+        }
+        public async Task<Sushi> CreateSushiAsync(string name, int price, int weight, int quantity)
+        {
+           var result = await _databaseService.CreateSushiAsync(name,price,weight,quantity);
+            return result;
         }
     }
 }

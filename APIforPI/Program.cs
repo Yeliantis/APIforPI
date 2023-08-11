@@ -1,8 +1,11 @@
+using APIforPI.Configuration;
 using APIforPI.Data;
+using APIforPI.Infrastracture.Interfaces;
 using APIforPI.Interfaces;
 using APIforPI.Seed;
 using APIforPI.Services;
-using APIforPiInfrastracture.Interfaces;
+
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,13 +15,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 
-builder.Services.AddScoped<IDatabaseService, DatabaseService>();
+builder.Services.AddScoped<IDbSushiService, DatabaseService>();
 builder.Services.AddScoped<ISushiService, SushiService>();
 builder.Services.AddScoped<ISetService, SetService>();
+builder.Services.AddScoped<IDbSetsService, DatabaseService>();
 
-builder.Services.AddTransient<Seed>();
+builder.Services.AddTransient<SeedData>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddSingleton<Mapper>(provider => AutoMapperConfiguration.CreateMapper());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
@@ -37,7 +41,7 @@ void SeedData(IHost app)
 
     using (var scope = scopedFactory.CreateScope())
     {
-        var service = scope.ServiceProvider.GetService<Seed>();
+        var service = scope.ServiceProvider.GetService<SeedData>();
         service.SeedDataContext();
     }
 }

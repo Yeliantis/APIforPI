@@ -1,4 +1,4 @@
-﻿namespace APIforPI.Dto
+﻿namespace APIforPI.Infrastracture.Dto
 {
     public class SushiDto
     {

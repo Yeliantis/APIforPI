@@ -5,9 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIforPI", "APIforPI\APIforPI.csproj", "{4A573024-6645-4E34-B090-1B7F765AC025}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIforPiInfrastracture", "APIforPiInfrastracture\APIforPiInfrastracture.csproj", "{B1202369-BF76-4169-B139-5E782FD54AA6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiforPiModeling", "ApiforPiModeling\ApiforPiModeling.csproj", "{21064E88-300C-482C-A63D-EB19CC0527C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIforPI.Infrastracture", "APIforPiInfrastracture\APIforPI.Infrastracture.csproj", "{B1202369-BF76-4169-B139-5E782FD54AA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{B1202369-BF76-4169-B139-5E782FD54AA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1202369-BF76-4169-B139-5E782FD54AA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1202369-BF76-4169-B139-5E782FD54AA6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21064E88-300C-482C-A63D-EB19CC0527C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21064E88-300C-482C-A63D-EB19CC0527C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21064E88-300C-482C-A63D-EB19CC0527C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21064E88-300C-482C-A63D-EB19CC0527C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,41 +1,49 @@
 ﻿using APIforPI.Interfaces;
 using APIforPI.Models;
-using APIforPiInfrastracture.Interfaces;
+using APIforPI.Infrastracture.Interfaces;
 using AutoMapper;
+
+using APIforPI.Infrastracture.Dto;
 
 namespace APIforPI.Services
 {
     public class SetService : ISetService
     {
-        private readonly IDatabaseService _databaseService;
         
-        public SetService(IDatabaseService databaseService)
+        private readonly IDbSetsService _dbSetsService;
+
+        public SetService(IDbSushiService databaseService, IDbSetsService dbSetsService)
         {
-            _databaseService= databaseService;
+            
+            _dbSetsService = dbSetsService;
         }
 
-        public void ChangeSet(string name, int price, int totalAmount, IEnumerable<int> sushis)
+        public async Task ChangeSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis)
         {
-           _databaseService.UpdateSet(name, price, totalAmount, sushis);
+           await _dbSetsService.UpdateSetAsync(name, price, totalAmount, sushis);
         }
 
-        public void CreateNewSet(string name, int price, int totalAmount, IEnumerable<int> sushis)
+        public async Task CreateNewSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis)
         {
-            _databaseService.CreateNewSet(name,  price,  totalAmount, sushis);
+            await _dbSetsService.CreateNewSetAsync(name,  price,  totalAmount, sushis);
         }
 
-        public ICollection<Sets> GetAllSets()
+        public async Task<IEnumerable<SetsDto>> GetAllSetsAsync()
         {
-           return _databaseService.GetAllSets();
+           var result = await _dbSetsService.GetAllSetsAsync();
+            var configuration = new MapperConfiguration(cfg => cfg.CreateMap<Sets, SetsDto>());
+            return new Mapper(configuration).Map<IEnumerable<SetsDto>>(result);
         }
 
-        public Sets GetSetInformation(string name)
+        public async Task<SetsDto> GetSetInformationAsync(string name)
         {
-            return _databaseService.GetSetInfo(name);
+            var result = await _dbSetsService.GetSetInfoAsync(name);
+            var configuration = new MapperConfiguration(cfg => cfg.CreateMap<Sets, SetsDto>());
+            return new Mapper(configuration).Map<SetsDto>(result);
         }
-        public void DeleteSet(string name)
+        public async Task DeleteSetAsync(string name)
         {
-             _databaseService.DeleteSet(name);
+            await _dbSetsService.DeleteSetAsync(name);
         }
 
     }
