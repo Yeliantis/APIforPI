@@ -23,7 +23,7 @@ namespace APIforPI.Services
 
         public async Task<Sushi> GetSushiAsync(string name) =>await _context.Sushi.Where(x => x.Name == name).FirstOrDefaultAsync();  ///Получение информации о суши по имени
         public async Task <Sushi> GetSushiWithIdAsync(int id) => await _context.Sushi.Where(x => x.Id == id).FirstOrDefaultAsync(); ///Получение информации о суши по id
-        public bool SUshiExists(int sushiId) => _context.Sushi.Any(x=>x.Id== sushiId); ///Проверка, существует ли такой суши
+        public bool SUshiExists(int sushiId) => _context.Sushi.Any(x=>x.Id== sushiId); ///Проверка, существует ли суши
         
         
         public async Task<IEnumerable<Sets>> GetAllSetsAsync() => await _context.Sets.OrderBy(s => s.Id).Include(c=>c.Sushis).ToListAsync(); /// Получение полного списка всех сетов
@@ -52,7 +52,7 @@ namespace APIforPI.Services
                 _context.SaveChanges();
             }   
         }
-        public async Task UpdateSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis)
+        public async Task UpdateSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis) /// Изменение сета по имени
         {
             var exists = await _context.Sets.Where(x => x.Name == name).FirstOrDefaultAsync();
             if (exists!= null)
@@ -66,7 +66,7 @@ namespace APIforPI.Services
             }
         }
 
-        public async Task<List<Sushi>> FindSushisForSetAsync(IEnumerable<int> sushisId) ///Метод получения коллекции сетов для метода создания нового Сета
+        public async Task<List<Sushi>> FindSushisForSetAsync(IEnumerable<int> sushisId) ///Полученин коллекции сетов для создания нового Сета
         {
 
             List<Sushi> temp = new List<Sushi>();
@@ -78,8 +78,9 @@ namespace APIforPI.Services
             return temp;
         }
 
-        public async Task<Sets> GetSetInfoAsync(string name) => await _context.Sets.Include(c => c.Sushis).FirstOrDefaultAsync(x => x.Name == name); /// Получение полной информации о конкретном сете
-        public async Task DeleteSetAsync(string name)
+        public async Task<Sets> GetSetInfoAsync(string name) => await _context.Sets.Include(c => c.Sushis)
+            .FirstOrDefaultAsync(x => x.Name == name); /// Получение полной информации о конкретном сете
+        public async Task DeleteSetAsync(string name) /// Удаление сета по имени
         {
            _context.Remove(await _context.Sets.Where(x=>x.Name==name).FirstOrDefaultAsync());
             _context.SaveChanges();
