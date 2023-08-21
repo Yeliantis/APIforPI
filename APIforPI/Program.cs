@@ -1,3 +1,4 @@
+using APIforPI.Actions;
 using APIforPI.Configuration;
 using APIforPI.Data;
 using APIforPI.Infrastracture.Interfaces;
@@ -19,8 +20,9 @@ builder.Services.AddScoped<IDbSushiService, DatabaseService>();
 builder.Services.AddScoped<ISushiService, SushiService>();
 builder.Services.AddScoped<ISetService, SetService>();
 builder.Services.AddScoped<IDbSetsService, DatabaseService>();
-
-builder.Services.AddTransient<SeedData>();
+builder.Services.AddScoped<ITimeApi, TimeClientApi>();
+builder.Services.AddScoped<IWorldApiService, WorldApiService>();
+builder.Services.AddTransient<SeedDataToDb>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSingleton<Mapper>(provider => AutoMapperConfiguration.CreateMapper());
 builder.Services.AddEndpointsApiExplorer();
@@ -41,7 +43,7 @@ void SeedData(IHost app)
 
     using (var scope = scopedFactory.CreateScope())
     {
-        var service = scope.ServiceProvider.GetService<SeedData>();
+        var service = scope.ServiceProvider.GetService<SeedDataToDb>();
         service.SeedDataContext();
     }
 }

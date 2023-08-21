@@ -1,5 +1,6 @@
 ﻿
 using APIforPI.Infrastracture.Dto;
+using APIforPI.Infrastracture.Models;
 using APIforPI.Models;
 using AutoMapper;
 
@@ -19,6 +20,7 @@ namespace APIforPI.Configuration
             {
                 config.CreateMap<Sushi, SushiDto>();
                 config.CreateMap<Sets, SetsDto>();
+                config.CreateMap<OnlyTime,OnlyTimeDto>();
             });
         }
     }

@@ -5,11 +5,11 @@ using System.Runtime.ExceptionServices;
 
 namespace APIforPI.Seed
 {
-    public class SeedData
+    public class SeedDataToDb
     {
         //Для запуска Seed после создания базы данных прописать в Developer PowerShell папку с проектом и после: dotnet run seeddata
         private readonly DataContext _context;
-        public SeedData(DataContext context)
+        public SeedDataToDb(DataContext context)
         {
             _context = context;
         }

@@ -14,8 +14,8 @@ namespace APIforPI.Controllers
     [ApiController]
     public class SetSushiController : Controller
     {
-        private ISushiService _sushiService;
-        private ISetService _setService;
+        private readonly ISushiService _sushiService;
+        private readonly ISetService _setService;
         public SetSushiController(ISushiService sushiService, ISetService setService)
         {
             _sushiService= sushiService;
