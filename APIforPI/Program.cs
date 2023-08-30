@@ -19,6 +19,8 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IDbSushiService, DatabaseService>();
 builder.Services.AddScoped<ISushiService, SushiService>();
 builder.Services.AddScoped<ISetService, SetService>();
+builder.Services.AddScoped<IDbProductService, DatabaseService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IDbSetsService, DatabaseService>();
 builder.Services.AddScoped<ITimeApi, TimeClientApi>();
 builder.Services.AddScoped<IWorldApiService, WorldApiService>();
@@ -36,7 +38,7 @@ var app = builder.Build();
 
 if (args.Length == 1 && args[0].ToLower() == "seeddata")
     SeedData(app);
-
+ 
 void SeedData(IHost app)
 {
     var scopedFactory = app.Services.GetService<IServiceScopeFactory>();

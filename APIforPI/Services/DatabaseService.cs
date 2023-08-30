@@ -1,6 +1,7 @@
 ﻿using APIforPI.Data;
 
 using APIforPI.Infrastracture.Interfaces;
+using APIforPI.Infrastracture.Models;
 using APIforPI.Models;
 
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APIforPI.Services
 {
-    public class DatabaseService : IDbSushiService, IDbSetsService
+    public class DatabaseService : IDbSushiService, IDbSetsService, IDbProductService
     {
 
         private readonly DataContext _context;
@@ -85,5 +86,8 @@ namespace APIforPI.Services
            _context.Remove(await _context.Sets.Where(x=>x.Name==name).FirstOrDefaultAsync());
             _context.SaveChanges();
         }
+
+        public async Task<IEnumerable<Product>> GetAllProductsAsync() => await _context.Products.OrderBy(x=>x.Id).ToListAsync();
+        
     }
 }

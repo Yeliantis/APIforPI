@@ -10,8 +10,8 @@ namespace APIforPI.Infrastracture.Models
 {
     public class OnlyTime
     {
-        
-        public string Abbreviation { get; set; }
+        [JsonPropertyName("Abbreviation")]
+        public string Region { get; set; }
         [JsonPropertyName("Day_Of_Week")]
         public int DayOfWeek { get; set; }
         [JsonPropertyName("Day_Of_Year")]

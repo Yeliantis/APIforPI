@@ -6,6 +6,6 @@ namespace APIforPI.Interfaces
     public interface ITimeApi
     {
         public Task<OnlyTime> GetYourTime();
-        public Task<string[]> ParseDate(string date);
+        public void ParseDate(OnlyTime time);
     }
 }

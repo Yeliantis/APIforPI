@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIforPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230804100527_Initial")]
+    [Migration("20230830095211_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -24,7 +24,9 @@ namespace APIforPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("APIforPI.Models.Sets", b =>
+            modelBuilder.HasSequence("ProductSequence");
+
+            modelBuilder.Entity("APIforPI.Infrastracture.Models.Cart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,28 +34,44 @@ namespace APIforPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalAmount")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sets");
+                    b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("APIforPI.Models.Sushi", b =>
+            modelBuilder.Entity("APIforPI.Infrastracture.Models.CartItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CartItems");
+                });
+
+            modelBuilder.Entity("APIforPI.Infrastracture.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR [ProductSequence]");
+
+                    SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -62,15 +80,28 @@ namespace APIforPI.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
+                    b.HasKey("Id");
+
+                    b.ToTable((string)null);
+
+                    b.UseTpcMappingStrategy();
+                });
+
+            modelBuilder.Entity("APIforPI.Infrastracture.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Weight")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sushi");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("SetsSushi", b =>
@@ -88,12 +119,35 @@ namespace APIforPI.Migrations
                     b.ToTable("SushisSets", (string)null);
                 });
 
+            modelBuilder.Entity("APIforPI.Models.Sets", b =>
+                {
+                    b.HasBaseType("APIforPI.Infrastracture.Models.Product");
+
+                    b.Property<int>("TotalAmount")
+                        .HasColumnType("int");
+
+                    b.ToTable("Sets");
+                });
+
+            modelBuilder.Entity("APIforPI.Models.Sushi", b =>
+                {
+                    b.HasBaseType("APIforPI.Infrastracture.Models.Product");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Weight")
+                        .HasColumnType("int");
+
+                    b.ToTable("Sushi");
+                });
+
             modelBuilder.Entity("SetsSushi", b =>
                 {
                     b.HasOne("APIforPI.Models.Sets", null)
                         .WithMany()
                         .HasForeignKey("SetsId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("APIforPI.Models.Sushi", null)
