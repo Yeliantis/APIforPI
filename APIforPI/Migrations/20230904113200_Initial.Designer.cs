@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIforPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230830095211_Initial")]
+    [Migration("20230904113200_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -72,6 +72,14 @@ namespace APIforPI.Migrations
                         .HasDefaultValueSql("NEXT VALUE FOR [ProductSequence]");
 
                     SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -139,7 +147,10 @@ namespace APIforPI.Migrations
                     b.Property<int>("Weight")
                         .HasColumnType("int");
 
-                    b.ToTable("Sushi");
+                    b.ToTable("Sushi", t =>
+                        {
+                            t.HasCheckConstraint("Price", "Price>200");
+                        });
                 });
 
             modelBuilder.Entity("SetsSushi", b =>

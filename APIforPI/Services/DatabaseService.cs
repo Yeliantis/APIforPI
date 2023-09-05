@@ -1,5 +1,5 @@
 ﻿using APIforPI.Data;
-
+using APIforPI.Infrastracture.Dto;
 using APIforPI.Infrastracture.Interfaces;
 using APIforPI.Infrastracture.Models;
 using APIforPI.Models;
@@ -22,10 +22,9 @@ namespace APIforPI.Services
 
         public async Task<IEnumerable<Sushi>> GetAllSushisAsync() => await _context.Sushi.OrderBy(s => s.Id).ToListAsync(); ///Получение полного списка всех суши
 
-        public async Task<Sushi> GetSushiAsync(string name) =>await _context.Sushi.Where(x => x.Name == name).FirstOrDefaultAsync();  ///Получение информации о суши по имени
+        public async Task<Sushi> GetSushiAsync(string name) =>await _context.Sushi.Where(x=>x.Name==name).FirstOrDefaultAsync();  ///Получение информации о суши по имени
         public async Task <Sushi> GetSushiWithIdAsync(int id) => await _context.Sushi.Where(x => x.Id == id).FirstOrDefaultAsync(); ///Получение информации о суши по id
         public bool SUshiExists(int sushiId) => _context.Sushi.Any(x=>x.Id== sushiId); ///Проверка, существует ли суши
-        
         
         public async Task<IEnumerable<Sets>> GetAllSetsAsync() => await _context.Sets.OrderBy(s => s.Id).Include(c=>c.Sushis).ToListAsync(); /// Получение полного списка всех сетов
         public async Task<Sushi> CreateSushiAsync(string name, int price, int weight, int quantity) ///Создание нового суши
@@ -79,8 +78,8 @@ namespace APIforPI.Services
             return temp;
         }
 
-        public async Task<Sets> GetSetInfoAsync(string name) => await _context.Sets.Include(c => c.Sushis)
-            .FirstOrDefaultAsync(x => x.Name == name); /// Получение полной информации о конкретном сете
+        public async Task<Sets> GetSetInfoAsync(int id) => await _context.Sets.Include(c => c.Sushis)
+            .FirstOrDefaultAsync(x => x.Id == id); /// Получение полной информации о конкретном сете (Eager Loading)
         public async Task DeleteSetAsync(string name) /// Удаление сета по имени
         {
            _context.Remove(await _context.Sets.Where(x=>x.Name==name).FirstOrDefaultAsync());
@@ -88,6 +87,6 @@ namespace APIforPI.Services
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync() => await _context.Products.OrderBy(x=>x.Id).ToListAsync();
-        
+        public async Task<Product> GetProductAsync(int id) => await _context.Products.FindAsync(id);
     }
 }

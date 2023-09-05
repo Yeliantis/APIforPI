@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.SqlServer.Migrations.Internal;
 namespace APIforPI.Controllers
 {
     
-    [Route("api/[controller]")]
+    [Route("api/SetSushi")]
     [ApiController]
     public class SetSushiController : Controller
     {
@@ -84,11 +84,11 @@ namespace APIforPI.Controllers
             return Ok("Success, Sushi has been created");
         }
 
-        [HttpGet("SetByName/{name}")]
+        [HttpGet("SetByName/{id}")]
         [ProducesResponseType(200, Type = typeof(SetsDto))]
-        public async Task<IActionResult> GetSetInfo(string name)
+        public async Task<IActionResult> GetSetInfo(int id)
         {
-            var result = await _setService.GetSetInformationAsync(name);
+            var result = await _setService.GetSetInformationAsync(id);
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState);
 
@@ -113,12 +113,12 @@ namespace APIforPI.Controllers
         {
             if (name==null) 
                 return BadRequest(ModelState);
-            var existing = await _setService.GetSetInformationAsync(name);
-            if (existing != null)
-            {
-                ModelState.AddModelError("", "Set already exists");
-                return StatusCode(402, ModelState);
-            }
+            //var existing = await _setService.GetSetInformationAsync();
+            //if (existing != null)
+            //{
+            //    ModelState.AddModelError("", "Set already exists");
+            //    return StatusCode(402, ModelState);
+            //}
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState);
            await _setService.CreateNewSetAsync(name,price,totalAmount,sushis);
@@ -131,9 +131,9 @@ namespace APIforPI.Controllers
         {
             if (name==null) 
                 return BadRequest(ModelState);
-            var result = await _setService.GetSetInformationAsync(name);
-            if (result == null)
-                return NotFound();
+            //var result = await _setService.GetSetInformationAsync(name);
+            //if (result == null)
+            //    return NotFound();
 
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -145,8 +145,8 @@ namespace APIforPI.Controllers
         [ProducesResponseType(400)]
         public async Task<IActionResult> DeleteSet(string setName)
         {
-            if (await _setService.GetSetInformationAsync(setName) == null) 
-                return NotFound();
+            //if (await _setService.GetSetInformationAsync(setName) == null) 
+            //    return NotFound();
 
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState);

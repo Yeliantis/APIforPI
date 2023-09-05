@@ -4,6 +4,9 @@ using APIforPI.Infrastracture.Interfaces;
 using AutoMapper;
 
 using APIforPI.Infrastracture.Dto;
+using System.Xml;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Cryptography.X509Certificates;
 
 namespace APIforPI.Services
 {
@@ -35,11 +38,13 @@ namespace APIforPI.Services
             return new Mapper(configuration).Map<IEnumerable<SetsDto>>(result);
         }
 
-        public async Task<SetsDto> GetSetInformationAsync(string name)
+        public async Task<SetsDto> GetSetInformationAsync(int id)
         {
-            var result = await _dbSetsService.GetSetInfoAsync(name);
+            var result = await _dbSetsService.GetSetInfoAsync(id);
             var configuration = new MapperConfiguration(cfg => cfg.CreateMap<Sets, SetsDto>());
-            return new Mapper(configuration).Map<SetsDto>(result);
+            var callbacl = new Mapper(configuration).Map<SetsDto>(result);
+          
+            return callbacl;
         }
         public async Task DeleteSetAsync(string name)
         {

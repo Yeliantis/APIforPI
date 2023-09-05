@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\Rolls\Баки.jpg" />
+    <None Include="wwwroot\Images\Rolls\Вэлл Ролл.jpg" />
+    <None Include="wwwroot\Images\Rolls\Калифорния с крабом.jpg" />
+    <None Include="wwwroot\Images\Rolls\Красный дракон.jpg" />
+    <None Include="wwwroot\Images\Rolls\Миёк.jpg" />
+    <None Include="wwwroot\Images\Rolls\Осака.jpg" />
+    <None Include="wwwroot\Images\Rolls\Самбай.jpg" />
+    <None Include="wwwroot\Images\Rolls\Солнечный.jpg" />
+    <None Include="wwwroot\Images\Rolls\Чидзу.jpg" />
+    <None Include="wwwroot\Images\Rolls\Эвоки.jpg" />
+    <None Include="wwwroot\Images\Rolls\Юта.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.11" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\APIforPiInfrastracture\APIforPI.Infrastracture.csproj" />
+  </ItemGroup>
+
+</Project>

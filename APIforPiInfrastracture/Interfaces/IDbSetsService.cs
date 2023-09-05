@@ -1,4 +1,5 @@
-﻿using APIforPI.Models;
+﻿using APIforPI.Infrastracture.Dto;
+using APIforPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace APIforPI.Infrastracture.Interfaces
     public interface IDbSetsService
     {
         Task<IEnumerable<Sets>> GetAllSetsAsync();
-        Task<Sets> GetSetInfoAsync(string name);
+        Task<Sets> GetSetInfoAsync(int id);
         Task CreateNewSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis);
         Task UpdateSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis);
         Task DeleteSetAsync(string name);

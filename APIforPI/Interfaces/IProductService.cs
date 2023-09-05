@@ -1,9 +1,11 @@
-﻿using APIforPI.Infrastracture.Models;
+﻿using APIforPI.Infrastracture.Dto;
+using APIforPI.Infrastracture.Models;
 
 namespace APIforPI.Interfaces
 {
     public interface IProductService
     {
-        Task<IEnumerable<Product>> GetAllProducts();
+        Task<IEnumerable<ProductDto>> GetAllProductsAsync();
+        Task<ProductDto> GetItemAsync(int id);
     }
 }

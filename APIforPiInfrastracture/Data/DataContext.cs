@@ -33,10 +33,10 @@ namespace APIforPI.Data
                 .UsingEntity(j => j.ToTable("SushisSets"));
 
             modelBuilder.Entity<Product>().UseTpcMappingStrategy();
-            //   modelBuilder.Entity<CartItem>()
-            //.HasOne(ci => ci.Item)
-            //.WithMany()
-            //.HasForeignKey(ci => ci.Id);
+
+            modelBuilder.Entity<Sushi>()
+                .ToTable(x => x.HasCheckConstraint("Price", "Price>200"));
+            
         }
        
     }

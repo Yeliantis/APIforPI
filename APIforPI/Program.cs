@@ -8,6 +8,7 @@ using APIforPI.Services;
 
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(pol =>
+pol.WithOrigins("http://localhost:7292", "https://localhost:7292")
+.AllowAnyMethod()
+.WithHeaders(HeaderNames.ContentType));
 
 app.UseHttpsRedirection();
 

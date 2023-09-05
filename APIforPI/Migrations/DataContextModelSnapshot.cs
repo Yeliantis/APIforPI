@@ -70,6 +70,14 @@ namespace APIforPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -136,7 +144,10 @@ namespace APIforPI.Migrations
                     b.Property<int>("Weight")
                         .HasColumnType("int");
 
-                    b.ToTable("Sushi");
+                    b.ToTable("Sushi", t =>
+                        {
+                            t.HasCheckConstraint("Price", "Price>200");
+                        });
                 });
 
             modelBuilder.Entity("SetsSushi", b =>

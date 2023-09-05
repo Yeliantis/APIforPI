@@ -9,9 +9,11 @@ namespace APIforPI.Infrastracture.Dto
 {
     public class SetsDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public List<Sushi> Sushis { get; set; }
         public int Price { get; set; }
         public int TotalAmount { get; set; }
+        public string ImageURL { get; set; }
     }
 }

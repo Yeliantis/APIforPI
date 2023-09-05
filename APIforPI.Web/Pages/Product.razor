@@ -1,0 +1,36 @@
+﻿@page "/"
+@using APIforPI.Models;
+
+@inherits ProductsBase
+
+
+@if (Products==null)
+{
+    <span class="loader"></span>
+}
+else
+{
+
+
+    <h3 class="mb-5">Products</h3>
+    
+    var productCount = Products.Count();
+    @if (productCount>0)
+    {
+        var groupedProducts = from product in Products
+                              group product by product.Category into prodByCatGroup
+                              orderby prodByCatGroup.Key
+                              select prodByCatGroup;
+        
+            @foreach (var group in groupedProducts) 
+            {
+                <h4>@group.FirstOrDefault(x=>x.Category==group.Key).Category</h4>
+                  <div class="row mt-3">
+            <DisplayProduct Products ="@group" culture="@culture" ></DisplayProduct>
+                  </div>
+                  <hr class="mb-3"/>
+            }
+           
+        
+    }
+}

@@ -16,9 +16,13 @@ namespace APIforPI.Controllers
             _timeService = timeService;
         }
         [HttpGet]
-        public async Task<OnlyTimeDto> GetYourTime()
+        public async Task<ActionResult<OnlyTimeDto>> GetYourTime()
         {
-            return await _timeService.GetYourTime();
+            var result = await _timeService.GetYourTime();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
+            return Ok(result);
         }
     }
 }
