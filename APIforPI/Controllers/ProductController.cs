@@ -1,6 +1,6 @@
 ﻿using APIforPI.Infrastracture.Dto;
 using APIforPI.Infrastracture.Models;
-using APIforPI.Interfaces;
+using APIforPI.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIforPI.Controllers
@@ -18,7 +18,7 @@ namespace APIforPI.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<ProductDto>))]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProductsAsync()
         {
-            var result = await _productService.GetAllProductsAsync();
+            var result = await _productService.GetProductsAsync();
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             if (result==null)

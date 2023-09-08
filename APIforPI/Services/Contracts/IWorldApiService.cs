@@ -1,7 +1,7 @@
 ﻿using APIforPI.Infrastracture.Dto;
 using APIforPI.Infrastracture.Models;
 
-namespace APIforPI.Interfaces
+namespace APIforPI.Services.Contracts
 {
     public interface IWorldApiService
     {

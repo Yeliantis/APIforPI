@@ -13,6 +13,10 @@ namespace APIforPI.Web.Pages
         public int Id { get; set; }
         [Inject]
         public IProductWebService _productService { get; set; }
+        [Inject]
+        public ICartItemWebService _cartItemService { get; set; }
+        [Inject]
+        public NavigationManager Navigation { get; set; }
         public CultureInfo culture { get; set; }
         public ProductDto Product { get; set; }
         public SushiDto SushiP { get; set; }
@@ -20,8 +24,9 @@ namespace APIforPI.Web.Pages
         protected override async Task OnInitializedAsync()
         {
             culture = new CultureInfo("ru-RU");
-            var result = await _productService.GetItem(Id);
-            if (result.Category == "Sushi")
+            Product = await _productService.GetItem(Id);
+            
+            if (Product.Category == "Sushi")
             {
                 SushiP = await _productService.GetSushi(Id);
             }
@@ -30,6 +35,12 @@ namespace APIforPI.Web.Pages
             {
                 SetsP = await _productService.GetSet(Id);
             }
+        }
+
+        protected async Task AddToCart_Click(CartItemAddDto cartItemAddDto)
+        {
+            var cartItemDto = await _cartItemService.AddItem(cartItemAddDto);
+            Navigation.NavigateTo("/Cart");
         }
     }
 }

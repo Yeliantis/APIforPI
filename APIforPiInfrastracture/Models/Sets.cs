@@ -1,4 +1,4 @@
-﻿using APIforPI.Infrastracture.Interfaces;
+﻿
 using APIforPI.Infrastracture.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;

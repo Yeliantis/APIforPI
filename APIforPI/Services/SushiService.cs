@@ -1,12 +1,11 @@
-﻿
-using APIforPI.Interfaces;
-using APIforPI.Models;
+﻿using APIforPI.Models;
 using APIforPI.Infrastracture.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 using APIforPI.Infrastracture.Dto;
+using APIforPI.Services.Contracts;
 
 namespace APIforPI.Services
 {

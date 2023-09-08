@@ -1,4 +1,4 @@
-﻿using APIforPI.Infrastracture.Interfaces;
+﻿
 using APIforPI.Infrastracture.Models;
 using APIforPI.Models;
 using Microsoft.EntityFrameworkCore;
@@ -27,12 +27,12 @@ namespace APIforPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Sets>()
+            modelBuilder.Entity<Sets>()  // Sets и Sushi Many-to-Many
                 .HasMany(c => c.Sushis)
                 .WithMany(x => x.Sets)
                 .UsingEntity(j => j.ToTable("SushisSets"));
 
-            modelBuilder.Entity<Product>().UseTpcMappingStrategy();
+            modelBuilder.Entity<Product>().UseTpcMappingStrategy(); //Подход Table Per Class
 
             modelBuilder.Entity<Sushi>()
                 .ToTable(x => x.HasCheckConstraint("Price", "Price>200"));

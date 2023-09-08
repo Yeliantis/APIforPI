@@ -1,6 +1,6 @@
 ﻿using APIforPI.Infrastracture.Dto;
 using APIforPI.Infrastracture.Models;
-using APIforPI.Interfaces;
+using APIforPI.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Design;
 

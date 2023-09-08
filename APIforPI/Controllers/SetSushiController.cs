@@ -1,7 +1,7 @@
 ﻿
 using APIforPI.Infrastracture.Dto;
-using APIforPI.Interfaces;
 using APIforPI.Models;
+using APIforPI.Services.Contracts;
 using AttributeRouting;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.SqlServer.Migrations.Internal;
 
 namespace APIforPI.Controllers
 {
-    
+
     [Route("api/SetSushi")]
     [ApiController]
     public class SetSushiController : Controller
@@ -127,7 +127,7 @@ namespace APIforPI.Controllers
         }
         [HttpPut("ChangeSet")]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> UpdateSet(string name, int totalAmount, int price, IEnumerable<int> sushis)
+        public async Task<IActionResult> UpdateSet(string name, int totalAmount, int price, IEnumerable<int> sushis) //Переделать метод
         {
             if (name==null) 
                 return BadRequest(ModelState);
@@ -143,7 +143,7 @@ namespace APIforPI.Controllers
         }
         [HttpDelete("DeleteSet/{setName}")]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> DeleteSet(string setName)
+        public async Task<IActionResult> DeleteSet(string setName) //Переделать метод
         {
             //if (await _setService.GetSetInformationAsync(setName) == null) 
             //    return NotFound();

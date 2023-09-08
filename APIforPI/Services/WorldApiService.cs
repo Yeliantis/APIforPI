@@ -1,6 +1,7 @@
-﻿using APIforPI.Infrastracture.Dto;
+﻿using APIforPI.Actions.Contracts;
+using APIforPI.Infrastracture.Dto;
 using APIforPI.Infrastracture.Models;
-using APIforPI.Interfaces;
+using APIforPI.Services.Contracts;
 using AttributeRouting.Helpers;
 using AutoMapper;
 

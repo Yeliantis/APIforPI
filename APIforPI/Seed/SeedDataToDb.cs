@@ -1,4 +1,5 @@
 ﻿using APIforPI.Data;
+using APIforPI.Infrastracture.Models;
 using APIforPI.Models;
 using APIforPI.Services;
 using System.Runtime.ExceptionServices;
@@ -17,6 +18,26 @@ namespace APIforPI.Seed
         
         public void SeedDataContext()
         {
+            if (!_context.Users.Any())
+            {
+                _context.Users.AddRange(new List<User>
+                {
+                    new User {UserName="Дмитрий"},
+                    new User {UserName="Александра"}
+
+                });
+                _context.SaveChanges();
+            }
+            if (!_context.Carts.Any())
+            {
+                _context.Carts.AddRange(new List<Cart>
+                {
+                    new Cart {UserId=1},
+                    new Cart {UserId=2}
+                });
+                _context.SaveChanges();
+
+            }
             if (!_context.Sushi.Any())
             {
                 List<Sushi> sushis = new List<Sushi>();

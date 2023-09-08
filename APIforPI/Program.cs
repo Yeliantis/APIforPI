@@ -1,11 +1,12 @@
 using APIforPI.Actions;
+using APIforPI.Actions.Contracts;
 using APIforPI.Configuration;
 using APIforPI.Data;
+using APIforPI.DbServices;
 using APIforPI.Infrastracture.Interfaces;
-using APIforPI.Interfaces;
 using APIforPI.Seed;
 using APIforPI.Services;
-
+using APIforPI.Services.Contracts;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
@@ -17,14 +18,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 
-builder.Services.AddScoped<IDbSushiService, DatabaseService>();
+builder.Services.AddScoped<IDbSushiService, SushiSetsRepository>();
 builder.Services.AddScoped<ISushiService, SushiService>();
 builder.Services.AddScoped<ISetService, SetService>();
-builder.Services.AddScoped<IDbProductService, DatabaseService>();
+builder.Services.AddScoped<IDbProductService, SushiSetsRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IDbSetsService, DatabaseService>();
+builder.Services.AddScoped<IDbSetsService, SushiSetsRepository>();
 builder.Services.AddScoped<ITimeApi, TimeClientApi>();
 builder.Services.AddScoped<IWorldApiService, WorldApiService>();
+builder.Services.AddScoped<IDbCartItemService, CartItemRepository>();
+builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddTransient<SeedDataToDb>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSingleton<Mapper>(provider => AutoMapperConfiguration.CreateMapper());

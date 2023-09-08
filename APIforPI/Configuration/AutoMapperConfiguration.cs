@@ -20,7 +20,7 @@ namespace APIforPI.Configuration
             {
                 config.CreateMap<Sushi, SushiDto>();
                 config.CreateMap<Sets, SetsDto>();
-                config.CreateMap<OnlyTime,OnlyTimeDto>();
+                config.CreateMap<OnlyTime, OnlyTimeDto>();
             });
         }
     }

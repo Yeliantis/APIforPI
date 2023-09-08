@@ -1,5 +1,4 @@
-﻿using APIforPI.Interfaces;
-using APIforPI.Models;
+﻿using APIforPI.Models;
 using APIforPI.Infrastracture.Interfaces;
 using AutoMapper;
 
@@ -7,6 +6,7 @@ using APIforPI.Infrastracture.Dto;
 using System.Xml;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Cryptography.X509Certificates;
+using APIforPI.Services.Contracts;
 
 namespace APIforPI.Services
 {

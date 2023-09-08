@@ -16,8 +16,20 @@ else if (SushiP!=null)
             <h3>Ролл @SushiP.Name</h3>
             <p class="mb-4">Количество: @SushiP.Quantity</p>
             <p class="mb-4">Вес: @SushiP.Weight</p>
-            <p class="mb-4">Цена: @SushiP.Price.ToString("C", culture)
+            <p class="mb-4">
+               Цена: @SushiP.Price.ToString("C", culture)
             </p>
+            <div>
+                <button class="btn-primary"
+                @onclick = "() => (AddToCart_Click(new CartItemAddDto{
+                    CartId=TemporaryUser.CartId,
+                    ProductId=Product.Id,
+                    Qty = 1
+                }))"
+                >
+                    <b>Добавить в Корзину</b>
+                </button>
+            </div>
         </div>
     </div>
 }
@@ -33,6 +45,17 @@ else {
             <p class="mb-4">
                 Цена: @SetsP.Price.ToString("C", culture)
             </p>
+            <div>
+                <button class="btn-primary"
+                @onclick = "() => (AddToCart_Click(new CartItemAddDto{
+                    CartId=TemporaryUser.CartId,
+                    ProductId=Product.Id,
+                    Qty = 1
+                }))"
+                >
+                    <b>Добавить в Корзину</b>
+                </button>
+            </div>
             <div class="row mt-3">
             @foreach (var item in SetsP.Sushis)
             {

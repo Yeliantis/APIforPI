@@ -1,5 +1,5 @@
-﻿using APIforPI.Infrastracture.Models;
-using APIforPI.Interfaces;
+﻿using APIforPI.Actions.Contracts;
+using APIforPI.Infrastracture.Models;
 using RestSharp;
 using static System.Net.Mime.MediaTypeNames;
 

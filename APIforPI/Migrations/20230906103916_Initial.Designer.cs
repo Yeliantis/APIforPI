@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIforPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230904113200_Initial")]
+    [Migration("20230906103916_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -85,8 +85,8 @@ namespace APIforPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

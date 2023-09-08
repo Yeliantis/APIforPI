@@ -8,31 +8,31 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-namespace APIforPI.Services
+namespace APIforPI.DbServices
 {
-    public class DatabaseService : IDbSushiService, IDbSetsService, IDbProductService
+    public class SushiSetsRepository : IDbSushiService, IDbSetsService, IDbProductService
     {
 
         private readonly DataContext _context;
 
-        public DatabaseService(DataContext context)
+        public SushiSetsRepository(DataContext context)
         {
-            _context= context;
+            _context = context;
         }
 
         public async Task<IEnumerable<Sushi>> GetAllSushisAsync() => await _context.Sushi.OrderBy(s => s.Id).ToListAsync(); ///Получение полного списка всех суши
 
-        public async Task<Sushi> GetSushiAsync(string name) =>await _context.Sushi.Where(x=>x.Name==name).FirstOrDefaultAsync();  ///Получение информации о суши по имени
-        public async Task <Sushi> GetSushiWithIdAsync(int id) => await _context.Sushi.Where(x => x.Id == id).FirstOrDefaultAsync(); ///Получение информации о суши по id
-        public bool SUshiExists(int sushiId) => _context.Sushi.Any(x=>x.Id== sushiId); ///Проверка, существует ли суши
-        
-        public async Task<IEnumerable<Sets>> GetAllSetsAsync() => await _context.Sets.OrderBy(s => s.Id).Include(c=>c.Sushis).ToListAsync(); /// Получение полного списка всех сетов
+        public async Task<Sushi> GetSushiAsync(string name) => await _context.Sushi.Where(x => x.Name == name).FirstOrDefaultAsync();  ///Получение информации о суши по имени
+        public async Task<Sushi> GetSushiWithIdAsync(int id) => await _context.Sushi.Where(x => x.Id == id).FirstOrDefaultAsync(); ///Получение информации о суши по id
+        public bool SUshiExists(int sushiId) => _context.Sushi.Any(x => x.Id == sushiId); ///Проверка, существует ли суши в БД
+
+        public async Task<IEnumerable<Sets>> GetAllSetsAsync() => await _context.Sets.OrderBy(s => s.Id).Include(c => c.Sushis).ToListAsync(); /// Получение полного списка всех сетов
         public async Task<Sushi> CreateSushiAsync(string name, int price, int weight, int quantity) ///Создание нового суши
         {
-            var exists = await _context.Sushi.Where(x=>x.Name==name).FirstOrDefaultAsync();
+            var exists = await _context.Sushi.Where(x => x.Name == name).FirstOrDefaultAsync();
             if (exists == null)
             {
-                Sushi sushi = new Sushi { Name=name, Price=price,Weight=weight,Quantity=quantity };
+                Sushi sushi = new Sushi { Name = name, Price = price, Weight = weight, Quantity = quantity };
                 _context.Sushi.Add(sushi);
                 _context.SaveChanges();
                 return sushi;
@@ -43,19 +43,19 @@ namespace APIforPI.Services
         public async Task CreateNewSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis) ///Создание нового сета
         {
             if (sushis == null) throw new ArgumentException("You didn't put any sushis in your set, Sushis are null");
-            var exists =await _context.Sets.Where(y=>y.Name== name).FirstOrDefaultAsync();
+            var exists = await _context.Sets.Where(y => y.Name == name).FirstOrDefaultAsync();
             if (exists == null)
             {
                 Sets newSet = new Sets { Name = name, Price = price, TotalAmount = totalAmount, Sushis = await FindSushisForSetAsync(sushis) };
-                
+
                 _context.Sets.Add(newSet);
                 _context.SaveChanges();
-            }   
+            }
         }
         public async Task UpdateSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis) /// Изменение сета по имени
         {
             var exists = await _context.Sets.Where(x => x.Name == name).FirstOrDefaultAsync();
-            if (exists!= null)
+            if (exists != null)
             {
                 exists.Name = name;
                 exists.Price = price;
@@ -72,7 +72,7 @@ namespace APIforPI.Services
             List<Sushi> temp = new List<Sushi>();
             foreach (var item in sushisId)
             {
-                temp.Add(await _context.Sushi.Where(y=>y.Id==item).FirstOrDefaultAsync());
+                temp.Add(await _context.Sushi.Where(y => y.Id == item).FirstOrDefaultAsync());
             }
 
             return temp;
@@ -82,11 +82,11 @@ namespace APIforPI.Services
             .FirstOrDefaultAsync(x => x.Id == id); /// Получение полной информации о конкретном сете (Eager Loading)
         public async Task DeleteSetAsync(string name) /// Удаление сета по имени
         {
-           _context.Remove(await _context.Sets.Where(x=>x.Name==name).FirstOrDefaultAsync());
+            _context.Remove(await _context.Sets.Where(x => x.Name == name).FirstOrDefaultAsync());
             _context.SaveChanges();
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync() => await _context.Products.OrderBy(x=>x.Id).ToListAsync();
-        public async Task<Product> GetProductAsync(int id) => await _context.Products.FindAsync(id);
+        public async Task<IEnumerable<Product>> GetAllProductsAsync() => await _context.Products.OrderBy(x => x.Id).ToListAsync(); /// Получение полного списка всех продуктов (Sets, Sushi)
+        public async Task<Product> GetProductAsync(int id) => await _context.Products.FindAsync(id); /// Получение конкретного продукта по Id
     }
 }

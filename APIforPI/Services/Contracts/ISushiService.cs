@@ -1,9 +1,8 @@
-﻿
-using APIforPI.Infrastracture.Dto;
+﻿using APIforPI.Infrastracture.Dto;
 using APIforPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APIforPI.Interfaces
+namespace APIforPI.Services.Contracts
 {
     public interface ISushiService
     {
@@ -11,6 +10,6 @@ namespace APIforPI.Interfaces
         public Task<SushiDto> GetSushiByNameAsync(string name);
         public Task<SushiDto> GetSushiByIdAsync(int id);
         public Task<Sushi> CreateSushiAsync(string name, int price, int weight, int quantity);
-        
+
     }
 }
