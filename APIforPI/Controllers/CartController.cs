@@ -41,10 +41,10 @@ namespace APIforPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CartItemDto>> PostItem([FromBody]CartItemAddDto cartItemAddDto)
+        public async Task<ActionResult<CartItemDto>> PostItem([FromBody] CartItemAddDto cartItemAddDto)
         {
             var newCartItem = await _cartService.AddItem(cartItemAddDto);
-            if (newCartItem==null)
+            if (newCartItem == null)
             {
                 return NoContent();
             }
@@ -54,11 +54,21 @@ namespace APIforPI.Controllers
         public async Task<ActionResult<CartItemDto>> DeleteItem(int id)
         {
             var deleteCartItem = await _cartService.DeleteItem(id);
-            if (deleteCartItem==null)
+            if (deleteCartItem == null)
             {
                 return NotFound();
             }
             return Ok(deleteCartItem);
+        }
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<CartItemDto>> UpdateQty(int id, CartItemUpdateQtyDto cartItemUpdateQtyDto)
+        {
+            var updateCartItem = await _cartService.UpdateQty(id, cartItemUpdateQtyDto);
+            if (updateCartItem==null)
+            {
+                return NotFound();
+            }
+            return Ok(updateCartItem);
         }
     }
 }

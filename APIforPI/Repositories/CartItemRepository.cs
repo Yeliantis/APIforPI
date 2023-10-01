@@ -81,9 +81,16 @@ namespace APIforPI.DbServices
                           }).SingleOrDefaultAsync();
         }
 
-        public Task<CartItem> UpdateQty(int id, CartItemAddDto cartItemToUpdate)
+        public async Task<CartItem> UpdateQty(int id, CartItemUpdateQtyDto cartItemToUpdate)
         {
-            throw new NotImplementedException();
+            var item = await _dataContext.CartItems.FindAsync(id);
+            if (item!=null)
+            {
+                item.Qty = cartItemToUpdate.Qty;
+                await _dataContext.SaveChangesAsync();
+                return item;
+            }
+            return null;
         }
     }
 }

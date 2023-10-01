@@ -19,8 +19,14 @@ else
                         <div class="col-md-8">
                             <h5>@item.ProductName</h5>
                             
-                            <span>Цена: <b>@item.Price.ToString("C", culture)</b></span>
-                        <div>
+                            <span>Цена: <b>@item.Price.ToString("C", culture)</b>
+                            <input type="number" @bind="@item.Qty"/>
+                            <button class="btn-dark"
+                            @onclick="() => UpdateCartItemQty_Click(item.Id, item.Qty)"
+                            >Обновить</button>
+                        </span>
+                        <div >
+                            
                             <button class="btn-danger"
                             @onclick ="()=> (DeleteFromCart_Click(item.Id)
                             )"> Убрать из корзины</button>

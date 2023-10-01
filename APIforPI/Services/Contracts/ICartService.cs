@@ -6,7 +6,7 @@ namespace APIforPI.Services.Contracts
     public interface ICartService
     {
         Task<CartItemDto> AddItem(CartItemAddDto cartItemToAdd);
-        Task<CartItemDto> UpdateQty(int id, CartItemAddDto cartItemToUpdate);
+        Task<CartItemDto> UpdateQty(int id, CartItemUpdateQtyDto cartItemToUpdate);
 
         Task<CartItemDto> DeleteItem(int id);
         Task<CartItemDto> GetItem(int id);

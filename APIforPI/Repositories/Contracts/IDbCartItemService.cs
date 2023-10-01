@@ -11,7 +11,7 @@ namespace APIforPI.Infrastracture.Interfaces
     public interface IDbCartItemService
     {
         Task<CartItem> AddItem(CartItemAddDto cartItemToAdd);
-        Task<CartItem> UpdateQty(int id, CartItemAddDto cartItemToUpdate);
+        Task<CartItem> UpdateQty(int id, CartItemUpdateQtyDto cartItemToUpdate);
         
         Task<CartItem> DeleteItem(int id);
         Task<CartItem> GetItem(int id);

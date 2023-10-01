@@ -7,6 +7,7 @@ namespace APIforPI.Web.Services.Contracts
         Task<IEnumerable<CartItemDto>> GetItems(int userId);
         Task<CartItemDto> AddItem(CartItemAddDto cartItemAddDto);
         Task<CartItemDto> DeleteItem(int id);
+        Task<CartItemDto> UpdateQty(CartItemUpdateQtyDto cartItemUpdateQtyDto);
 
     }
 }
