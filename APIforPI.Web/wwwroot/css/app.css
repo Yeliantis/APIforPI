@@ -93,5 +93,51 @@ a, .btn-link {
     }
 }
 
+.button_plus {
+    display: inline-block;
+    padding: 4px 20px;
+    background-color: #000080;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+
+.plus_icon {
+    margin-right: 2px; 
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.button_plus:hover {
+    background-color: yellowgreen;
+}
+
+.button_minus {
+    display: inline-block;
+    padding: 4px 24px;
+    background-color: #000080;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.button_minus:hover {
+    background-color: yellowgreen;
+}
+
+.button_delete {
+    display: inline-block;
+    padding: 4px 16px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
 
   

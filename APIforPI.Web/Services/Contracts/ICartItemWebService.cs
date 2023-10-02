@@ -8,6 +8,7 @@ namespace APIforPI.Web.Services.Contracts
         Task<CartItemDto> AddItem(CartItemAddDto cartItemAddDto);
         Task<CartItemDto> DeleteItem(int id);
         Task<CartItemDto> UpdateQty(CartItemUpdateQtyDto cartItemUpdateQtyDto);
-
+        Task<CartItemDto> IncreaseQty(int id);
+        Task<CartItemDto> DecreaseQty(int id);
     }
 }

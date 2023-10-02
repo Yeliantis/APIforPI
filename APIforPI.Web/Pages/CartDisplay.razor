@@ -26,10 +26,27 @@ else
                             >Обновить</button>
                         </span>
                         <div >
+                            @if (item.Qty >1)
+                            {
+                                <button class="button_minus" @onclick="()=> (DecreaseCartItemQty_Click(item.Id))">
+                                    <span class="plus_icon">-</span>
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="button_delete" @onclick ="()=> (DeleteFromCart_Click(item.Id)
+                            )">
+                                    <span class="plus_icon"><i class="fa fa-trash"></i></span>
+                                </button>
+                            }
+                            <button class="button_plus" @onclick="()=> (IncreaseCartItemQty_Click(item.Id))">
+                                <span class="plus_icon">+</span>
+                            </button>
                             
-                            <button class="btn-danger"
+
+                            @*<button class="btn btn-danger sm"
                             @onclick ="()=> (DeleteFromCart_Click(item.Id)
-                            )"> Убрать из корзины</button>
+                            )"> Убрать из корзины</button>*@
                         </div>
                             </div>
                     </div>

@@ -21,10 +21,8 @@ namespace APIforPI.Web.Pages
         protected async Task DeleteFromCart_Click(int id)
         {
             var cartItemDtoToDelete = await _cartItemWebService.DeleteItem(id);
-            //CartItems = await CartItemWebService.GetItems(TemporaryUser.UserId);
-            var list = CartItems.ToList();
-            list.Remove(list.Where(x=> x.Id==cartItemDtoToDelete.Id).FirstOrDefault());
-            CartItems= list;
+            CartItems = CartItems.Where(x => x.Id != id).ToList();
+            
         }
 
         protected async Task UpdateCartItemQty_Click(int id, int qty)
@@ -47,6 +45,17 @@ namespace APIforPI.Web.Pages
                     item.TotalPrice = item.Price * item.Qty;
                 }
             }
+        }
+        protected async Task IncreaseCartItemQty_Click(int id)
+        {
+            var returnedItem = await _cartItemWebService.IncreaseQty(id);
+            CartItems.Where(x => x.Id == id).FirstOrDefault().Qty++;
+        }
+        protected async Task DecreaseCartItemQty_Click(int id)
+        {
+            var returnedItem = await _cartItemWebService.DecreaseQty(id);
+            CartItems.Where(x => x.Id == id).FirstOrDefault().Qty--;
+
         }
         
         

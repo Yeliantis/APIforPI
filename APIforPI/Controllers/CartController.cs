@@ -70,5 +70,25 @@ namespace APIforPI.Controllers
             }
             return Ok(updateCartItem);
         }
+        [HttpPut("Inc/{id}")]
+        public async Task<ActionResult<CartItemDto>> IncreateQty(int id)
+        {
+            var increaseCartItem = await _cartService.IncreaseQtyAsync(id);
+            if (increaseCartItem==null)
+            {
+                return NotFound();
+            }
+            return Ok(increaseCartItem);
+        }
+        [HttpPut("Dec/{id}")]
+        public async Task<ActionResult<CartItemDto>> DecreaseQty(int id)
+        {
+            var decreasedCartItem = await _cartService.DecreaseQtyAsync(id);
+            if (decreasedCartItem==null)
+            {
+                return NotFound();
+            }
+            return Ok(decreasedCartItem);
+        }
     }
 }

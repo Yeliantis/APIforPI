@@ -15,14 +15,17 @@ namespace APIforPI.DbServices
         }
         private async Task<bool> ItemExists(int cartId, int productId)
         {
-            var check = await _dataContext.CartItems.AnyAsync(x=>x.CartId == cartId && x.ProductId==productId);
+            var check = await _dataContext.CartItems
+                .AnyAsync(x=>x.CartId == cartId && x.ProductId==productId);
             return check;
         }
         public async Task<CartItem> AddItem(CartItemAddDto cartItemToAdd)
         {
             if (await ItemExists(cartItemToAdd.CartId, cartItemToAdd.ProductId) == false)
             {
-                var item = await _dataContext.Products.Where(x => x.Id == cartItemToAdd.ProductId).Select(o => new CartItem
+                var item = await _dataContext.Products
+                    .Where(x => x.Id == cartItemToAdd.ProductId)
+                    .Select(o => new CartItem
                 {
                     CartId = cartItemToAdd.CartId,
                     ProductId = cartItemToAdd.ProductId,
@@ -42,7 +45,9 @@ namespace APIforPI.DbServices
 
         public async Task<CartItem> DeleteItem(int id)
         {
-           var item = await _dataContext.CartItems.Where(x=>x.Id== id).FirstOrDefaultAsync();
+           var item = await _dataContext.CartItems
+                .Where(x=>x.Id== id)
+                .FirstOrDefaultAsync();
             if (item != null)
             {
                 _dataContext.CartItems.Remove(item);
@@ -83,10 +88,34 @@ namespace APIforPI.DbServices
 
         public async Task<CartItem> UpdateQty(int id, CartItemUpdateQtyDto cartItemToUpdate)
         {
-            var item = await _dataContext.CartItems.FindAsync(id);
+            var item = await _dataContext.CartItems
+                .FindAsync(id);
             if (item!=null)
             {
                 item.Qty = cartItemToUpdate.Qty;
+                await _dataContext.SaveChangesAsync();
+                return item;
+            }
+            return null;
+        }
+
+        public async Task<CartItem> IncreaseQty(int id)
+        {
+            var item = await _dataContext.CartItems.FindAsync(id);
+            if (item!=null)
+            {
+                item.Qty++;
+                await _dataContext.SaveChangesAsync();
+                return item;
+            }
+            return null;
+        }
+        public async Task<CartItem> DecreaseQty(int id)
+        {
+            var item = await _dataContext.CartItems.FindAsync(id);
+            if (item!=null)
+            {
+                item.Qty--;
                 await _dataContext.SaveChangesAsync();
                 return item;
             }

@@ -67,5 +67,28 @@ namespace APIforPI.Web.Services
             }
             return null;
         }
+
+        public async Task<CartItemDto> IncreaseQty(int id)
+        {
+            var json = JsonConvert.SerializeObject(id);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync($"api/Cart/Inc/{id}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<CartItemDto>();
+            }
+            return null;
+        }
+        public async Task<CartItemDto> DecreaseQty(int id)
+        {
+            var json = JsonConvert.SerializeObject(id);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync($"api/Cart/Dec/{id}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<CartItemDto>();
+            }
+            return null;
+        }
     }
 }

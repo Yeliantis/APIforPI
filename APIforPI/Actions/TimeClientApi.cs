@@ -9,20 +9,18 @@ namespace APIforPI.Actions
     {
         public async Task<OnlyTime?> GetYourTime()
         {
-            var options = new RestClientOptions("http://worldtimeapi.org/");
-            var client = new RestClient(options);
-          
-            var s = await client.GetJsonAsync<OnlyTime?>("/api/ip");
-            
-             ParseDate(s);
-            
-            return s;
+            using (RestClient client = new RestClient("http://worldtimeapi.org/"))
+            {
+               var s = await client.GetJsonAsync<OnlyTime?>("/api/ip");
+                ParseDate(s);
+                return s;
+            }
         }
         public void ParseDate(OnlyTime time)
         {     
             char[] separator = { 'T', '.' };
-            time.CurrentTime = time.DateTime.Split(separator)[0];
-            time.CurrentDate = time.DateTime.Split(separator)[1];    
+            time.CurrentTime = time.DateTime.Split(separator)[1];
+            time.CurrentDate = time.DateTime.Split(separator)[0];    
         }
     }
 }
