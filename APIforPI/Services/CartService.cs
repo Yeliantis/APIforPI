@@ -20,9 +20,13 @@ namespace APIforPI.Services
         public async Task<CartItemDto> AddItem(CartItemAddDto cartItemToAdd)
         {
             var noDto = await _cartItemDbService.AddItem(cartItemToAdd);
-            var product = await _productDbService.GetProductAsync(noDto.ProductId); //Пофиксить баг при попытке добавить один и тот же предмет
-            var result = noDto.ConvertToDto(product);
-            return result;
+            if (noDto!=null)
+            {
+                var product = await _productDbService.GetProductAsync(noDto.ProductId); //Пофиксить баг при попытке добавить один и тот же предмет
+                var result = noDto.ConvertToDto(product);
+                return result;
+            }
+            return null;
         }
 
         public async Task<CartItemDto> DeleteItem(int id)

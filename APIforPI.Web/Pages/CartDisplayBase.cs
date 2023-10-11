@@ -11,18 +11,23 @@ namespace APIforPI.Web.Pages
         [Inject]
         public ICartItemWebService _cartItemWebService { get; set; }
         public IEnumerable<CartItemDto> CartItems { get; set; }
+        protected string TotalPrice { get; set; }
         
+        protected int TotalQty { get; set; }
         public CultureInfo culture { get; set; }
         protected override async Task OnInitializedAsync()
         {
             CartItems = await _cartItemWebService.GetItems(TemporaryUser.UserId);
             culture = new CultureInfo("ru-RU");
+            CountTotalPrice();
         }
         protected async Task DeleteFromCart_Click(int id)
         {
             var cartItemDtoToDelete = await _cartItemWebService.DeleteItem(id);
             CartItems = CartItems.Where(x => x.Id != id).ToList();
-            
+            CountTotalPrice();
+
+
         }
 
         protected async Task UpdateCartItemQty_Click(int id, int qty)
@@ -35,6 +40,9 @@ namespace APIforPI.Web.Pages
                     Qty = qty
                 };
                 var returnedItem = await _cartItemWebService.UpdateQty (updateItemDto);
+                UpdateItemTotalPrice(returnedItem);
+                CountTotalPrice();
+
             }
             else
             {
@@ -50,11 +58,34 @@ namespace APIforPI.Web.Pages
         {
             var returnedItem = await _cartItemWebService.IncreaseQty(id);
             CartItems.Where(x => x.Id == id).FirstOrDefault().Qty++;
+            UpdateItemTotalPrice(returnedItem);
+            CountTotalPrice();
         }
         protected async Task DecreaseCartItemQty_Click(int id)
         {
             var returnedItem = await _cartItemWebService.DecreaseQty(id);
             CartItems.Where(x => x.Id == id).FirstOrDefault().Qty--;
+            UpdateItemTotalPrice(returnedItem);
+            CountTotalPrice();
+
+        }
+        private CartItemDto GetCartItem(int id)
+        {
+            return CartItems.Where(x => x.Id == id).FirstOrDefault();
+        }
+
+        private void CountTotalPrice()
+        {
+            TotalPrice = this.CartItems.Sum(x => x.TotalPrice).ToString("C",culture);
+        }
+        private void UpdateItemTotalPrice(CartItemDto cartItemDto)
+        {
+            var item = GetCartItem(cartItemDto.Id);
+            if (item!=null)
+            {
+                item.TotalPrice = item.Price * item.Qty;
+            }
+            
 
         }
         
