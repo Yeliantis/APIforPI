@@ -14,10 +14,14 @@ namespace APIforPI.Web.Pages
         public CultureInfo culture { get; set; }
         [Inject]
         public ICartItemWebService CartItemWebService { get; set; }
-
+        
+       
         protected async Task AddToCart_Click(CartItemAddDto cartItemAddDto)
         {
-            var cartItemDto = await CartItemWebService.AddItem(cartItemAddDto);   
+            var cartItemDto = await CartItemWebService.AddItem(cartItemAddDto);
+            var items = await CartItemWebService.GetItems(TemporaryUser.UserId);
+            var totalPrice = items.Sum(x => x.TotalPrice);
+            CartItemWebService.CallEventWhenCartChanged(totalPrice.ToString());
         }
     }
 }

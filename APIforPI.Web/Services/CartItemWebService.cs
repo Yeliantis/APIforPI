@@ -1,6 +1,7 @@
 ﻿using APIforPI.Infrastracture.Dto;
 using APIforPI.Web.Services.Contracts;
 using Azure;
+using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -12,6 +13,9 @@ namespace APIforPI.Web.Services
     public class CartItemWebService : ICartItemWebService
     {
         private readonly HttpClient _httpClient;
+
+        public event Action<string> CartChanged;
+
         public CartItemWebService(HttpClient httpCline)
         {
             _httpClient = httpCline;
@@ -89,6 +93,14 @@ namespace APIforPI.Web.Services
                 return await response.Content.ReadFromJsonAsync<CartItemDto>();
             }
             return null;
+        }
+
+        public void CallEventWhenCartChanged(string totalQty)
+        {
+            if (CartChanged!= null)
+            {
+                CartChanged.Invoke(totalQty);
+            }
         }
     }
 }

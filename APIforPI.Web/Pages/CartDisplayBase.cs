@@ -19,13 +19,13 @@ namespace APIforPI.Web.Pages
         {
             CartItems = await _cartItemWebService.GetItems(TemporaryUser.UserId);
             culture = new CultureInfo("ru-RU");
-            CountTotalPrice();
+            CartChanged();
         }
         protected async Task DeleteFromCart_Click(int id)
         {
             var cartItemDtoToDelete = await _cartItemWebService.DeleteItem(id);
             CartItems = CartItems.Where(x => x.Id != id).ToList();
-            CountTotalPrice();
+            CartChanged();
 
 
         }
@@ -41,7 +41,7 @@ namespace APIforPI.Web.Pages
                 };
                 var returnedItem = await _cartItemWebService.UpdateQty (updateItemDto);
                 UpdateItemTotalPrice(returnedItem);
-                CountTotalPrice();
+                CartChanged();
 
             }
             else
@@ -59,14 +59,14 @@ namespace APIforPI.Web.Pages
             var returnedItem = await _cartItemWebService.IncreaseQty(id);
             CartItems.Where(x => x.Id == id).FirstOrDefault().Qty++;
             UpdateItemTotalPrice(returnedItem);
-            CountTotalPrice();
+            CartChanged();
         }
         protected async Task DecreaseCartItemQty_Click(int id)
         {
             var returnedItem = await _cartItemWebService.DecreaseQty(id);
             CartItems.Where(x => x.Id == id).FirstOrDefault().Qty--;
             UpdateItemTotalPrice(returnedItem);
-            CountTotalPrice();
+            CartChanged();
 
         }
         private CartItemDto GetCartItem(int id)
@@ -85,8 +85,14 @@ namespace APIforPI.Web.Pages
             {
                 item.TotalPrice = item.Price * item.Qty;
             }
-            
 
+        }
+
+        private void CartChanged()
+        {
+            CountTotalPrice();
+
+            _cartItemWebService.CallEventWhenCartChanged(TotalPrice);
         }
         
         

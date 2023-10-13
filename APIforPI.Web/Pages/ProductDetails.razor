@@ -1,6 +1,8 @@
 ﻿@page "/ProductDetails/{Id:int}"
 @inherits ProductDetailsBase
 
+@* Детали конкретного продукта при нажатии на него из списка *@
+
 @if (SushiP ==null && SetsP==null)
 {
     <h3>Loading details...</h3>

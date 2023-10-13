@@ -65,7 +65,7 @@ namespace APIforPI.DbServices
                           select new CartItem
                           {
                               Id = CartItem.Id,
-                              CartId = CartItem.Id,
+                              CartId = cart.Id,
                               ProductId = CartItem.ProductId,
                               Qty = CartItem.Qty
                           }).ToListAsync();

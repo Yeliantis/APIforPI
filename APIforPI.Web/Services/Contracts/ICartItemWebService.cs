@@ -10,5 +10,9 @@ namespace APIforPI.Web.Services.Contracts
         Task<CartItemDto> UpdateQty(CartItemUpdateQtyDto cartItemUpdateQtyDto);
         Task<CartItemDto> IncreaseQty(int id);
         Task<CartItemDto> DecreaseQty(int id);
+
+        event Action<string> CartChanged;
+
+        void CallEventWhenCartChanged(string totalPrice);
     }
 }

@@ -1,0 +1,27 @@
+﻿@implements IDisposable
+@inject ICartItemWebService cartWebService
+
+<a href="Cart" class="btn btn-info">
+    <i class="oi oi-cart"></i>Корзина
+    <span class="badge bg-dark">@ShoppintCartItemPrice</span>
+</a>
+
+@code {
+    private string ShoppintCartItemPrice;
+
+    protected override void OnInitialized()
+    {
+        cartWebService.CartChanged += CartBeingChanged;
+
+    }
+    protected void CartBeingChanged(string totalPrice)
+    {
+        ShoppintCartItemPrice = totalPrice;
+        StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        cartWebService.CartChanged -= CartBeingChanged;
+    }
+}

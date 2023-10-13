@@ -13,7 +13,7 @@ namespace APIforPI.DtoConversions
                     select new CartItemDto
                     {
                         Id = cartItem.Id,
-                        ProductId = cartItem.Id,
+                        ProductId = product.Id,
                         ProductName = product.Name,
                         ImageUrl = product.ImageURL,
                         Price = product.Price,
