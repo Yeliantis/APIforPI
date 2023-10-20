@@ -13,5 +13,6 @@ namespace APIforPI.Services.Contracts
         Task<IEnumerable<CartItemDto>> GetCartItems(int Id);
         Task<CartItemDto> IncreaseQtyAsync(int id);
         Task<CartItemDto> DecreaseQtyAsync(int id);
+        Task<IEnumerable<CartItem>> ClearCart(int cartId);
     }
 }

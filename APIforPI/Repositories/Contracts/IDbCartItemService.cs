@@ -18,5 +18,8 @@ namespace APIforPI.Infrastracture.Interfaces
         Task<IEnumerable<CartItem>> GetCartItems(int Id);
         Task<CartItem> IncreaseQty(int id);
         Task<CartItem> DecreaseQty(int id);
+
+        Task<IEnumerable<CartItem>> ClearCart(int cartId);
+
     }
 }

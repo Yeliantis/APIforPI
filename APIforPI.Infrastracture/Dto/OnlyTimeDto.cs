@@ -9,11 +9,6 @@ namespace APIforPI.Infrastracture.Dto
 {
     public class OnlyTimeDto
     {
-        public string Region { get; set; }
-        public int DayOfWeek { get; set; }
-        public int DayOfYear { get; set; }
-        public string TimeZone { get; set; }
-        public string CurrentTime { get; set; }
-        public string CurrentDate { get; set; }
+        public DateTime Date { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using APIforPI.Infrastracture.Models;
 using APIforPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Security.Cryptography.X509Certificates;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace APIforPI.Data
@@ -21,7 +22,8 @@ namespace APIforPI.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
         
-
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
 
 
 
@@ -36,7 +38,8 @@ namespace APIforPI.Data
 
             modelBuilder.Entity<Sushi>()
                 .ToTable(x => x.HasCheckConstraint("Price", "Price>200"));
-            
+
+           
         }
        
     }

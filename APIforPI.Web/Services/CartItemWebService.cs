@@ -95,11 +95,21 @@ namespace APIforPI.Web.Services
             return null;
         }
 
-        public void CallEventWhenCartChanged(string totalQty)
+        public async Task<IEnumerable<CartItemDto>> ClearCartAsync(int cartId)
+        {
+            var result = await _httpClient.DeleteAsync($"api/Cart/Clear/{cartId}");
+            if (result.IsSuccessStatusCode)
+            {
+                return await result.Content.ReadFromJsonAsync<IEnumerable<CartItemDto>>();
+            }
+            return null;
+        }
+
+        public void CallEventWhenCartChanged(string totalPrice)
         {
             if (CartChanged!= null)
             {
-                CartChanged.Invoke(totalQty);
+                CartChanged.Invoke(totalPrice);
             }
         }
     }

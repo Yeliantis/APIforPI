@@ -76,5 +76,11 @@ namespace APIforPI.Services
             var result = noDto.ConvertToDto(product);
             return result;
         }
+
+        public async Task<IEnumerable<CartItem>> ClearCart(int cartId)
+        {
+            var result = await _cartItemDbService.ClearCart(cartId);
+            return result;
+        }
     }
 }

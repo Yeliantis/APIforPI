@@ -121,5 +121,17 @@ namespace APIforPI.DbServices
             }
             return null;
         }
+
+        public async Task<IEnumerable<CartItem>> ClearCart(int cartId)
+        {
+            var cartItems = await GetCartItems(cartId);
+            if (cartItems!=null)
+            {
+                _dataContext.RemoveRange(cartItems);
+                await _dataContext.SaveChangesAsync();
+                return cartItems;
+            }
+            return null;
+        }
     }
 }

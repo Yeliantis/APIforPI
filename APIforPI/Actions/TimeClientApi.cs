@@ -1,6 +1,7 @@
 ﻿using APIforPI.Actions.Contracts;
 using APIforPI.Infrastracture.Models;
 using RestSharp;
+using System.Globalization;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace APIforPI.Actions
@@ -17,10 +18,10 @@ namespace APIforPI.Actions
             }
         }
         public void ParseDate(OnlyTime time)
-        {     
+        {
             char[] separator = { 'T', '.' };
-            time.CurrentTime = time.DateTime.Split(separator)[1];
-            time.CurrentDate = time.DateTime.Split(separator)[0];    
+            var completeDate = time.CurrentTime.Split(separator)[0]+" " + time.CurrentTime.Split(separator)[1];
+            time.Date = DateTime.Parse(completeDate);
         }
     }
 }

@@ -26,8 +26,6 @@ namespace APIforPI.Web.Pages
             var cartItemDtoToDelete = await _cartItemWebService.DeleteItem(id);
             CartItems = CartItems.Where(x => x.Id != id).ToList();
             CartChanged();
-
-
         }
 
         protected async Task UpdateCartItemQty_Click(int id, int qty)
@@ -94,7 +92,15 @@ namespace APIforPI.Web.Pages
 
             _cartItemWebService.CallEventWhenCartChanged(TotalPrice);
         }
-        
+        public async Task ClearCart_Click(int cartId)
+        {
+            var result = await _cartItemWebService.ClearCartAsync(cartId);
+
+           CartItems = await _cartItemWebService.GetItems(TemporaryUser.UserId);
+           StateHasChanged();
+           CartChanged();
+           
+        }
         
     }
 }

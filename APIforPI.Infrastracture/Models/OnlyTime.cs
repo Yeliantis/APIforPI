@@ -17,9 +17,10 @@ namespace APIforPI.Infrastracture.Models
         [JsonPropertyName("Day_Of_Year")]
         public int DayOfYear { get; set; }
         public string TimeZone { get; set; }
-        
-        public string DateTime { get; set; }
+
+        [JsonPropertyName("datetime")]
         public string CurrentTime { get; set; }
-        public string CurrentDate { get; set; }
+        public DateTime Date { get; set; }
+        
     }
 }

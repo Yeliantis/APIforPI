@@ -1,4 +1,7 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@implements IDisposable
+@inject ICartItemWebService cartWebService
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">APIforPI.Web</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -15,9 +18,9 @@
             </NavLink>
         </div>
        
-        <div class="nav-item px-3">
+        <div class="nav-item px-3 d-sm-none">
             <NavLink class="nav-link" href="Cart">
-                <span class="oi oi-basket" aria-hidden="true"></span> Корзина
+                <span class="oi oi-basket" aria-hidden="true"></span> Корзина (<b>@shoppingCartTotalPrice</b>)
             </NavLink>
         </div>
         <div class="nav-item px-3">
@@ -25,6 +28,7 @@
                 <span class="oi oi-star" aria-hidden="true"></span> Добавить продукт
             </NavLink>
         </div>
+         
        
     </nav>
 </div>
@@ -33,9 +37,23 @@
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string shoppingCartTotalPrice = "";
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+    protected override void OnInitialized()
+    {
+        cartWebService.CartChanged += UserCartChanged;
+    }
+    private void UserCartChanged(string totalPrice)
+    {
+        shoppingCartTotalPrice = totalPrice;
+        StateHasChanged();
+    }
+    void IDisposable.Dispose()
+    {
+        cartWebService.CartChanged -= UserCartChanged;
     }
 }

@@ -21,7 +21,7 @@ namespace APIforPI.Web.Pages
             var cartItemDto = await CartItemWebService.AddItem(cartItemAddDto);
             var items = await CartItemWebService.GetItems(TemporaryUser.UserId);
             var totalPrice = items.Sum(x => x.TotalPrice);
-            CartItemWebService.CallEventWhenCartChanged(totalPrice.ToString());
+            CartItemWebService.CallEventWhenCartChanged(totalPrice.ToString("C",new CultureInfo("Ru-ru")));
         }
     }
 }

@@ -60,6 +60,16 @@ namespace APIforPI.Controllers
             }
             return Ok(deleteCartItem);
         }
+        [HttpDelete("Clear/{id:int}")]
+        public async Task<ActionResult<CartItemDto>> ClearCart(int id)
+        {
+            var clearedCart = await _cartService.ClearCart(id);
+            if (clearedCart==null) 
+            {
+                return NoContent();
+            }
+            return Ok(clearedCart);
+        }
         [HttpPut("{id:int}")]
         public async Task<ActionResult<CartItemDto>> UpdateQty(int id, CartItemUpdateQtyDto cartItemUpdateQtyDto)
         {

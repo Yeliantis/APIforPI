@@ -1,0 +1,22 @@
+﻿
+@page "/Cart/Summary"
+@inherits CartSummaryBase
+@*Продолжение корзины*@
+
+@if (cartItems ==null)
+{
+    <span class="loader"></span>
+}
+
+else {
+      <div class="products">
+        <h2>Список продуктов</h2>
+        <ul>
+            @foreach (var item in cartItems)
+            {
+                <li>@item.ProductName - @item.TotalPrice</li>
+            }
+        </ul>
+        <button class="purchase-button" @onclick ="()=> (MakeOrder_Click(cartItems))">Оплатить</button>
+    </div>
+}

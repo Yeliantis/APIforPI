@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace APIforPI.Infrastracture.Models
 {
    public abstract class Product
-    {
+   {
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string ImageURL { get; set; }
         public string Category { get; set; }
-    }
+   }
 }
