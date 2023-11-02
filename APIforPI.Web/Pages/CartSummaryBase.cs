@@ -14,10 +14,21 @@ namespace APIforPI.Web.Pages
         [Inject]
         public IOrderWebService _orderService { get; set; }
         public IEnumerable<CartItemDto> cartItems { get; set; }
+        [Inject]
+        public NavigationManager NavigationManager {get;set;}
+        public bool IsOrderCreated { get; set; } = false;
 
         protected override async Task OnInitializedAsync()
         {
-            cartItems = await _cartItemWebService.GetItems(TemporaryUser.UserId);
+            var items = await _cartItemWebService.GetItems(TemporaryUser.UserId);
+            if (items != null && items.Count()>0)
+            {
+                cartItems = items;
+            }
+            else
+            {
+                cartItems = null;
+            }
         }
 
         protected async Task MakeOrder_Click(IEnumerable<CartItemDto> cartItems)
@@ -25,7 +36,18 @@ namespace APIforPI.Web.Pages
             if (cartItems.Count() >0)
             {
                 var result = await _orderService.ExecuteOrder(cartItems);
+                _cartItemWebService.ClearCartAsync(1);
+                IsOrderCreated= true;
+               
             }
         }
+
+        protected void NavigateToMainPage_Click()
+        {
+            
+            NavigationManager.NavigateTo("/");
+        }
+
+       
     }
 }

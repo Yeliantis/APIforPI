@@ -3,20 +3,40 @@
 @inherits CartSummaryBase
 @*Продолжение корзины*@
 
-@if (cartItems ==null)
+@if (cartItems==null) {
+    <div style="text-align: center; padding: 20px; background-color: #f5f0ff; border: 1px solid #ddd;">
+    <p style="font-size: 24px; color: #6a0dad; font-family: 'Arial', sans-serif; font-weight: bold;">В вашей корзине пока нет продуктов</p>
+        <button class="violet" @onclick="NavigateToMainPage_Click">Вернуться на главную </button>
+
+    </div>
+
+}
+else
 {
-    <span class="loader"></span>
+    if (IsOrderCreated == false)
+    {
+            <div class="products">
+                <h2>Список продуктов</h2>
+                <ul>
+                @foreach (var item in cartItems)
+                {
+                            <li>@item.ProductName - @item.TotalPrice</li>
+                }
+                </ul>
+                <p><b>Итоговая сумма - @cartItems.Sum(x => x.TotalPrice).ToString()</b></p>
+                <button class="purchase-button" @onclick ="()=> (MakeOrder_Click(cartItems))">Оплатить</button>
+                <button class="btn btn-danger" @onclick="NavigateToMainPage_Click" style="float:right">Вернуться на главную</button>
+        </div>
+    }
+    else
+    {
+        <div>
+            <h2>Ваш заказ был оформлен, ожидайте курьера.</h2>
+        </div>
+    }
 }
 
-else {
-      <div class="products">
-        <h2>Список продуктов</h2>
-        <ul>
-            @foreach (var item in cartItems)
-            {
-                <li>@item.ProductName - @item.TotalPrice</li>
-            }
-        </ul>
-        <button class="purchase-button" @onclick ="()=> (MakeOrder_Click(cartItems))">Оплатить</button>
-    </div>
-}
+
+
+
+      
