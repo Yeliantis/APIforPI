@@ -1,7 +1,7 @@
 ﻿
 @page "/Cart/Summary"
 @inherits CartSummaryBase
-@*Продолжение корзины*@
+@*Продолжение корзины для оформления заказа*@
 
 @if (cartItems==null) {
     <div style="text-align: center; padding: 20px; background-color: #f5f0ff; border: 1px solid #ddd;">
@@ -23,7 +23,7 @@ else
                             <li>@item.ProductName - @item.TotalPrice</li>
                 }
                 </ul>
-                <p><b>Итоговая сумма - @cartItems.Sum(x => x.TotalPrice).ToString()</b></p>
+                <p><b>Итоговая сумма - @cartItems.Sum(x => x.Price*x.Qty).ToString()</b></p>
                 <button class="purchase-button" @onclick ="()=> (MakeOrder_Click(cartItems))">Оплатить</button>
                 <button class="btn btn-danger" @onclick="NavigateToMainPage_Click" style="float:right">Вернуться на главную</button>
         </div>

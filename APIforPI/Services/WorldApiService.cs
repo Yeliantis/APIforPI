@@ -16,9 +16,9 @@ namespace APIforPI.Services
         }
         public async Task<OnlyTimeDto> GetYourTime()
         {
-            var s = await _timeApi.GetYourTime();
+            var time = await _timeApi.GetYourTime();
             var configuration = new MapperConfiguration(cfg => cfg.CreateMap<OnlyTime, OnlyTimeDto>());
-            return new Mapper(configuration).Map<OnlyTimeDto>(s);
+            return new Mapper(configuration).Map<OnlyTimeDto>(time);
             
             
             

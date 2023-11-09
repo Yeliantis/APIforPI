@@ -1,5 +1,6 @@
 ﻿using APIforPI.Infrastracture.Dto;
 using APIforPI.Infrastracture.Models;
+using APIforPI.Models;
 
 namespace APIforPI.DtoConversions
 {
@@ -37,5 +38,6 @@ namespace APIforPI.DtoConversions
                 TotalPrice = product.Price * cartItem.Qty
             };
         }
+
     }
 }

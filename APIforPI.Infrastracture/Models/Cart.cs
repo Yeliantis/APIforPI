@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace APIforPI.Infrastracture.Models
 {
+
     public class Cart
     {
         public int Id { get; set; }

@@ -28,7 +28,7 @@ namespace APIforPI.Services
 
         public async Task<SushiDto> GetSushiByNameAsync(string name)
         {
-            var result = await _dbSushiService.GetSushiAsync(name);
+            var result = await _dbSushiService.GetSushiByNameAsync(name);
             var configuration = new MapperConfiguration(cfg => cfg.CreateMap<Sushi, SushiDto>());
             return new Mapper(configuration).Map<SushiDto>(result);
         }
@@ -40,10 +40,16 @@ namespace APIforPI.Services
             return new Mapper(configuration).Map<SushiDto>(result);
 
         }
-        public async Task<Sushi> CreateSushiAsync(string name, int price, int weight, int quantity)
+        public async Task<SushiDto> CreateSushiAsync(SushiDto sushi)
         {
-           var result = await _dbSushiService.CreateSushiAsync(name,price,weight,quantity);
-            return result;
+            var configuration = new MapperConfiguration(cfg => cfg.CreateMap <SushiDto, Sushi>());
+            var sushiNoDto = new Mapper(configuration).Map<Sushi>(sushi);
+           var result = await _dbSushiService.CreateSushiAsync(sushiNoDto);
+            if (result != null)
+            {
+                return sushi;
+            }
+            return null;
         }
     }
 }

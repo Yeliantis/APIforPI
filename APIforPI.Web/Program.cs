@@ -1,6 +1,7 @@
 using APIforPI.Web;
 using APIforPI.Web.Services;
 using APIforPI.Web.Services.Contracts;
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -12,4 +13,10 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 builder.Services.AddScoped<IProductWebService, ProductWebService>();
 builder.Services.AddScoped<ICartItemWebService, CartItemWebService>();
 builder.Services.AddScoped<IOrderWebService, OrderWebService>();
+
+builder.Services.AddBlazoredLocalStorage();
+
+builder.Services.AddScoped<IProductLocalStorageService, ProductLocalStorageService>();
+builder.Services.AddScoped<ICartItemsLocalStorageService, CartItemsLocalStorageService>();
+
 await builder.Build().RunAsync();

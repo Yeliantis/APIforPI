@@ -1,30 +1,40 @@
 ﻿@inherits DisplayProductBase
-@* Компонент для отображения информации о продукте на главной странице со списком продуктов *@
+@* Компонент для отображения информации о продукте на главной странице со списком продуктов *@ 
+
+
+
+
 @foreach (var item in Products)
 {
-                    <div class="col-md-3 mb-2">
-                        
-                            <div class="card" style="width: 300px; height:350px">
+    <div class="col-md-3 mb-2">
 
-                <a href="/ProductDetails/@item.Id">
+        <div class="card" style="width: 300px; height:350px">
+
+            <a href="/ProductDetails/@item.Id">
                 <img class="img-thumbnail" src="@item.ImageURL">
-                </a>
-                                <div class="card-body">
-                                    
-                                    <h5 class="card-title mb-3">
-                                        @item.Name
-                    <button @onclick = "() => (AddToCart_Click(new CartItemAddDto{
+            </a>
+            <div class="card-body">
+
+                <h5 class="card-title mb-3">
+                    @item.Name
+                    <button @onclick="() => (AddToCart_Click(new CartItemAddDto{
                     CartId=TemporaryUser.CartId,
                     ProductId=item.Id,
                     Qty = 1
-                }))" class="alert-danger" style="float: right">В корзину</button>
-                                    </h5>
-                                    <p class="card-text">
-                                        <b>@item.Price.ToString("C",culture)
-                                        </b>
-                                    </p>  
-                                </div>   
-                            </div> 
-                    </div>
+                }))" class=" btn btn-primary" style="float: right">
+                        В корзину
+                    </button>
+                </h5>
+                <p class="card-text">
+                    <b>
+                        @item.Price.ToString("C",culture)
+                    </b>
+                </p>
+            </div>
+        </div>
+    </div>
 
 }
+
+
+

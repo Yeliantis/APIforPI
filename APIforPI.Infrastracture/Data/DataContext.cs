@@ -39,6 +39,9 @@ namespace APIforPI.Data
             modelBuilder.Entity<Sushi>()
                 .ToTable(x => x.HasCheckConstraint("Price", "Price>200"));
 
+            modelBuilder.Entity<Sets>()
+                .ToTable(x => x.HasCheckConstraint("Category", "Sets"));
+
            
         }
        

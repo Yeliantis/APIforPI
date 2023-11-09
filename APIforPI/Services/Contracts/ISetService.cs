@@ -7,9 +7,7 @@ namespace APIforPI.Services.Contracts
     {
         Task<IEnumerable<SetsDto>> GetAllSetsAsync();
         Task<SetsDto> GetSetInformationAsync(int id);
-        Task CreateNewSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis);
-
-        Task ChangeSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis);
-        Task DeleteSetAsync(string name);
+        Task<Sets> CreateNewSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis);
+        Task DeleteSetAsync(int setId);
     }
 }

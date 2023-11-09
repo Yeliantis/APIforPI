@@ -21,14 +21,11 @@ namespace APIforPI.Services
             _dbSetsService = dbSetsService;
         }
 
-        public async Task ChangeSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis)
-        {
-           await _dbSetsService.UpdateSetAsync(name, price, totalAmount, sushis);
-        }
 
-        public async Task CreateNewSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis)
+        public async Task<Sets> CreateNewSetAsync(string name, int price, int totalAmount, IEnumerable<int> sushis)
         {
-            await _dbSetsService.CreateNewSetAsync(name,  price,  totalAmount, sushis);
+            var result = await _dbSetsService.CreateNewSetAsync(name, price, totalAmount, sushis);
+            return result;
         }
 
         public async Task<IEnumerable<SetsDto>> GetAllSetsAsync()
@@ -46,9 +43,9 @@ namespace APIforPI.Services
           
             return callbacl;
         }
-        public async Task DeleteSetAsync(string name)
+        public async Task DeleteSetAsync(int setId)
         {
-            await _dbSetsService.DeleteSetAsync(name);
+            await _dbSetsService.DeleteSetAsync(setId);
         }
 
     }

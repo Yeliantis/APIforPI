@@ -9,7 +9,7 @@ namespace APIforPI.Services.Contracts
         public Task<IEnumerable<SushiDto>> GetSushisAsync();
         public Task<SushiDto> GetSushiByNameAsync(string name);
         public Task<SushiDto> GetSushiByIdAsync(int id);
-        public Task<Sushi> CreateSushiAsync(string name, int price, int weight, int quantity);
+        public Task<SushiDto> CreateSushiAsync(SushiDto sushi);
 
     }
 }

@@ -8,13 +8,13 @@ namespace APIforPI.Actions
 {
     public class TimeClientApi : ITimeApi
     {
-        public async Task<OnlyTime?> GetYourTime()
+        public async Task<OnlyTime> GetYourTime()
         {
             using (RestClient client = new RestClient("http://worldtimeapi.org/"))
             {
-               var s = await client.GetJsonAsync<OnlyTime?>("/api/ip");
-                ParseDate(s);
-                return s;
+               var time = await client.GetJsonAsync<OnlyTime?>("/api/ip");
+                ParseDate(time);
+                return time;
             }
         }
         public void ParseDate(OnlyTime time)

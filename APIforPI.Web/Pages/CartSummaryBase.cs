@@ -12,6 +12,8 @@ namespace APIforPI.Web.Pages
         [Inject]
         public ICartItemWebService _cartItemWebService { get; set; }
         [Inject]
+        public ICartItemsLocalStorageService _cartItemsLocalStorageService { get; set;}
+        [Inject]
         public IOrderWebService _orderService { get; set; }
         public IEnumerable<CartItemDto> cartItems { get; set; }
         [Inject]
@@ -20,7 +22,7 @@ namespace APIforPI.Web.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            var items = await _cartItemWebService.GetItems(TemporaryUser.UserId);
+            var items = await _cartItemsLocalStorageService.GetCollection();
             if (items != null && items.Count()>0)
             {
                 cartItems = items;
@@ -36,7 +38,8 @@ namespace APIforPI.Web.Pages
             if (cartItems.Count() >0)
             {
                 var result = await _orderService.ExecuteOrder(cartItems);
-                _cartItemWebService.ClearCartAsync(1);
+               await _cartItemWebService.ClearCartAsync(1);
+               await _cartItemsLocalStorageService.RemoveCollection();
                 IsOrderCreated= true;
                
             }

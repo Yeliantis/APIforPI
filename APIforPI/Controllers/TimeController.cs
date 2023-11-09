@@ -16,6 +16,8 @@ namespace APIforPI.Controllers
             _timeService = timeService;
         }
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(OnlyTimeDto))]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<OnlyTimeDto>> GetYourTime()
         {
             var result = await _timeService.GetYourTime();

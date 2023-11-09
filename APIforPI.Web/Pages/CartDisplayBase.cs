@@ -10,6 +10,8 @@ namespace APIforPI.Web.Pages
     {
         [Inject]
         public ICartItemWebService _cartItemWebService { get; set; }
+        [Inject]
+        public ICartItemsLocalStorageService _cartItemsLocalStorageService { get; set; }
         public IEnumerable<CartItemDto> CartItems { get; set; }
         protected string TotalPrice { get; set; }
         
@@ -17,7 +19,7 @@ namespace APIforPI.Web.Pages
         public CultureInfo culture { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            CartItems = await _cartItemWebService.GetItems(TemporaryUser.UserId);
+            CartItems = await _cartItemsLocalStorageService.GetCollection();
             culture = new CultureInfo("ru-RU");
             CartChanged();
         }
@@ -25,6 +27,7 @@ namespace APIforPI.Web.Pages
         {
             var cartItemDtoToDelete = await _cartItemWebService.DeleteItem(id);
             CartItems = CartItems.Where(x => x.Id != id).ToList();
+
             CartChanged();
         }
 

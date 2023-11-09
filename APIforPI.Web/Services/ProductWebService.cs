@@ -13,6 +13,7 @@ namespace APIforPI.Web.Services
             _httpClient= httpClient;
         }
 
+       
         public async Task<ProductDto> GetItem(int id)
         {
             return await _httpClient.GetFromJsonAsync<ProductDto>($"api/Product/{id}");
@@ -23,10 +24,12 @@ namespace APIforPI.Web.Services
             return await _httpClient.GetFromJsonAsync<IEnumerable<ProductDto>>("api/Product");
         }
 
+        
         public async Task<SushiDto> GetSushi(int id)
         {
             return await _httpClient.GetFromJsonAsync<SushiDto>($"api/SetSushi/{id}");
         }
+       
         public async Task<SetsDto> GetSet(int id)
         {
             return await _httpClient.GetFromJsonAsync<SetsDto>($"api/SetSushi/SetByName/{id}");
