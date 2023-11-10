@@ -18,14 +18,16 @@ namespace APIforPI.Services
         }
         public async Task<IEnumerable<ProductDto>> GetProductsAsync()
         {
-           var result = await _dbProductService.GetAllProductsAsync();
-            return new Mapper(_configuration).Map<IEnumerable<ProductDto>>(result);
+           var product = await _dbProductService.GetAllProductsAsync();
+            var result = new Mapper(_configuration).Map<IEnumerable<ProductDto>>(product);
+            return result;
         }
 
         public async Task<ProductDto> GetItemAsync(int id)
         {
-            var result = await _dbProductService.GetProductAsync(id);
-            return new Mapper(_configuration).Map<ProductDto>(result);
+            var product = await _dbProductService.GetProductAsync(id);
+            var result = new Mapper(_configuration).Map<ProductDto>(product);
+            return result;
         }
     }
 }

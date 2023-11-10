@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIforPI.Web", "APIforPI.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIforPI.Infrastracture", "APIforPI.Infrastracture\APIforPI.Infrastracture.csproj", "{1267A9B0-DC02-4FFA-9374-96A5C00E47EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIforPI.Testing", "APIforPI.Testing\APIforPI.Testing.csproj", "{0509AAAD-7EBB-4509-A61E-76469A6F93C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1267A9B0-DC02-4FFA-9374-96A5C00E47EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1267A9B0-DC02-4FFA-9374-96A5C00E47EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1267A9B0-DC02-4FFA-9374-96A5C00E47EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0509AAAD-7EBB-4509-A61E-76469A6F93C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0509AAAD-7EBB-4509-A61E-76469A6F93C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0509AAAD-7EBB-4509-A61E-76469A6F93C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0509AAAD-7EBB-4509-A61E-76469A6F93C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

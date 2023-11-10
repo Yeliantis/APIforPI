@@ -31,10 +31,14 @@ namespace APIforPI.Controllers
         public async Task<ActionResult<ProductDto>> GetProductAsync(int id)
         {
             var result = await _productService.GetItemAsync(id);
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+     
             if (result==null)
                 return NotFound();
+            if (result.Name==null)
+            {
+                ModelState.AddModelError("Name", "Name shouldn't be null");
+                return BadRequest(ModelState);
+            }
             return Ok(result);
         }
     }
